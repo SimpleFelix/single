@@ -1,4 +1,4 @@
-module github.com/postfinance/single
+module github.com/simplefelix/single
 
 go 1.15
 
