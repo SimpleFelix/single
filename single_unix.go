@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package single
@@ -9,11 +10,11 @@ import (
 )
 
 // Lock tries to obtain an exclude lock on a lockfile and exits the program if an error occurs
-func (s *Single) Lock() error {
+func (s *Single) Lock() (*os.File, error) {
 	// open/create lock file
 	f, err := os.OpenFile(s.Lockfile(), os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	s.file = f
@@ -24,10 +25,10 @@ func (s *Single) Lock() error {
 	}
 	// try to obtain an exclusive lock - FcntlFlock seems to be the portable *ix way
 	if err := syscall.FcntlFlock(s.file.Fd(), syscall.F_SETLK, &flock); err != nil {
-		return ErrAlreadyRunning
+		return nil, ErrAlreadyRunning
 	}
 
-	return nil
+	return f, nil
 }
 
 // Unlock releases the lock, closes and removes the lockfile
