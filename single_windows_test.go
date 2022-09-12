@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/postfinance/single"
+	"github.com/chris-sean/single"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

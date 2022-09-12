@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package single_test
@@ -7,7 +8,7 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/postfinance/single"
+	"github.com/chris-sean/single"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
